@@ -1,0 +1,173 @@
+//Elaborado por: Moron Sandoval Victor Saul
+//Fecha 12/06/2022
+//Esta parte del codigo se encarga de la primera vista que tiene el usuario, misma donde podemos ver el indice
+#include <iostream>
+#include "Grafo.h"
+
+int main()
+{
+	Grafo* grafo = new Grafo();
+	int opc = 0;
+	
+	//Estos son datos de prueba, para falicidad de mostrarle las capturas del proyecto, obvio se pueden documentar y probar con otras
+	grafo->InsertaVertice("A");
+	grafo->InsertaVertice("B");
+	grafo->InsertaVertice("C");
+	grafo->InsertaVertice("D");
+	grafo->InsertaVertice("E");
+	grafo->InsertaVertice("F");
+	grafo->InsertaVertice("G");
+	grafo->InsertaArista("A", "A", 18);
+	grafo->InsertaArista("A", "D", 6);
+	grafo->InsertaArista("B", "B", 47);
+	grafo->InsertaArista("B", "C", 14);
+	grafo->InsertaArista("B", "D", 77);
+	grafo->InsertaArista("B", "F", 86);
+	grafo->InsertaArista("B", "G", 54);
+	grafo->InsertaArista("C", "A", 2);
+	grafo->InsertaArista("D", "B", 92);
+	grafo->InsertaArista("D", "C", 34);
+	grafo->InsertaArista("D", "D", 27);
+	grafo->InsertaArista("D", "E", 36);
+	grafo->InsertaArista("D", "G", 57);
+	grafo->InsertaArista("E", "B", 9);
+	grafo->InsertaArista("E", "E", 39);
+	grafo->InsertaArista("E", "F", 97);
+	grafo->InsertaArista("F", "A", 16);
+	grafo->InsertaArista("F", "B", 11);
+	grafo->InsertaArista("F", "E", 37);
+	grafo->InsertaArista("G", "D", 22);
+
+	while (opc != 9)
+	{
+		system("cls");
+		cout << "\tAlgoritmo de Dijkstra" << endl;
+		cout << "\nMenu:" << endl;
+		cout << "1. Insertar un nuevo vertice" << endl;
+		cout << "2. Insertar una arista" << endl;
+		cout << "3. Obtener tamano del arreglo (numero de vertices)" << endl;
+		cout << "4. Mostrar lista" << endl;
+		cout << "5. Eliminar vertice" << endl;
+		cout << "6. Eliminar arista" << endl;
+		cout << "7. Eliminar grafo" << endl;
+		cout << "8. Proceso Dijkstra" << endl;
+		cout << "9. Salir del programa" << endl;
+
+		cout << endl;
+		cout << "Ingrese la opcion que desea realizar: ";
+		cin >> opc;
+
+		system("cls");
+
+		switch (opc)
+		{
+		case 1: //Para insertar un vertice
+		{
+			string nombre;
+			cout << "Ingrese el nombre que quiere asignar al vertice: ";
+			cin >> nombre;
+
+			grafo->InsertaVertice(nombre);
+
+			break;
+		}
+		case 2: //Para insertar la arista
+		{
+			if (grafo->EstaVacio())
+				cout << "El grafo actualmente no tiene valores de vertice" << endl;
+			else
+			{
+				string ori, dest;
+				int precio;
+				cout << "Ingrese el nombre del vertice origen: ";
+				cin >> ori;
+				cout << "Ingrese el nombre del vertice destino: ";
+				cin >> dest;
+				cout << "Ingrese el valor que desea asignar a la arista: ";
+				cin >> precio;
+
+				grafo->InsertaArista(ori, dest, precio);
+			}
+
+			break;
+		}
+		case 3: //Tamaño del grafo
+		{
+			int tamano = grafo->ObtenerTamano();
+			cout << "El grafo tiene " << tamano << " vertices" << endl;
+
+			break;
+		}
+		case 4: //Muestra el grafo
+		{
+			if (grafo->EstaVacio())
+				cout << "El grafo esta vacio" << endl;
+			else
+				grafo->MostrarListaAdyacencia();
+
+			break;
+		}
+		case 5: //Eliminar vertice
+		{
+			if (grafo->EstaVacio())
+				cout << "El grafo esta vacio" << endl;
+			else
+			{
+				string nombre;
+				cout << "Ingrese el nombre del vertice a eliminar: ";
+				cin >> nombre;
+
+				grafo->EliminarVertice(nombre);
+			}
+
+			break;
+		}
+		case 6: //Eliminar Arista
+		{
+			if (grafo->EstaVacio())
+				cout << "El grafo esta vacio" << endl;
+			else
+			{
+				string ori, dest;
+				cout << "Ingrese el nombre del vertice origen: ";
+				cin >> ori;
+				cout << "Ingrese el nombre del vertice destino: ";
+				cin >> dest;
+
+				grafo->EliminarArista(ori, dest);
+			}
+			break;
+		}
+		case 7: //Eliminar grafo
+		{
+			if (grafo->EstaVacio())
+				cout << "El grafo esta vacio" << endl;
+			else
+			{
+				grafo->EliminarTodo();
+			}
+
+			break;
+		}
+		case 8: //Proceso de Djkstra
+		{
+			if (grafo->EstaVacio())
+				cout << "El grafo esta vacio" << endl;
+			else
+			{
+				string ori;
+				cout << "Ingrese el nombre del vertice origen: ";
+				cin >> ori;
+
+				grafo->Dijkstra(ori);
+			}
+
+			break;
+		}
+		}
+
+		cin.get();
+		cin.get();
+	}
+
+}
